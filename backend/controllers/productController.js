@@ -62,10 +62,10 @@ const addProduct = async (req, res) => {
 const listProducts = async (req, res) => {
   try {
     // List products logic here
-    const products = await productModel.find({});
-    res.json({ success: true, message: "Products fetched", products });
+    const products = await productModel.findOne();
+    res.status(200).json({ success: true, message: "Products fetched", products:[products] });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 

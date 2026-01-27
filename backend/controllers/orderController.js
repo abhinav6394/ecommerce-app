@@ -49,18 +49,18 @@ const placeOrderStripe = async (req,res) => {
             items,
             address,
             amount,
-            paymentMethod:"COD",
+            paymentMethod:"Stripe",
             payment:false,
             date: Date.now()
         }  
 
         const newOrder = new orderModel(orderData)
         await newOrder.save()  
-        const line_items = items.map(()=>({
+        const line_items = items.map((item)=>({
             price_data: {
                 currency:currency,
                 product_data: {
-                    name:items.name
+                    name:item.name
                 },
                 unit_amount:item.price * 100
             },
@@ -84,10 +84,10 @@ const placeOrderStripe = async (req,res) => {
             mode: 'payment',
         })
 
-        res.status(200).send({success:true,message:"payment success",success_url:session.url});
+        res.status(200).send({success:true,message:"payment success",session_url:session.url});
     } catch (error) {
         console.log(error)
-        res.send({success:false,message:"errr in stripe api"})
+        res.send({success:false,message:"Internal Server Error"})
     }
 }
 
