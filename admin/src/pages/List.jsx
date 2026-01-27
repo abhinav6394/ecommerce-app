@@ -6,11 +6,12 @@ import { toast } from 'react-toastify'
 const List = ({token}) => {
 
   const [list, setList] = useState([])
+  const [page,setPage] = useState(2)
 
-  const fetchList = async () =>{
+  const fetchList = async (page=1) =>{
     try {
 
-      const response = await axios.get(backendUrl + '/api/product/list')
+      const response = await axios.get(backendUrl + '/api/product/list?page='+page)
       if(response.data.success){
         setList(response.data.products)
       }
@@ -44,8 +45,9 @@ const List = ({token}) => {
   }
 
   useEffect(()=>{
-    fetchList()
-  },[])
+    console.log("object")
+    fetchList(page)
+  },[page])
 
   return (
     <>
@@ -75,6 +77,22 @@ const List = ({token}) => {
           ))
         }
       </div>
+    <div className='flex justify-center gap-2 mt-4'>
+      <button 
+        onClick={() => setPage(page - 1)} 
+        disabled={page === 1}
+        className='px-4 py-2 bg-gray-300 disabled:opacity-50 cursor-pointer'
+      >
+        Previous
+      </button>
+      <p className='px-4 py-2'>{page}</p>
+      <button 
+        onClick={() => setPage(page + 1)}
+        className='px-4 py-2 bg-gray-300 cursor-pointer'
+      >
+        Next
+      </button>
+    </div>
     </>
   )
 }

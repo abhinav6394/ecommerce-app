@@ -62,8 +62,9 @@ const addProduct = async (req, res) => {
 const listProducts = async (req, res) => {
   try {
     // List products logic here
-    const products = await productModel.findOne();
-    res.status(200).json({ success: true, message: "Products fetched", products:[products] });
+    const { limit = 5, page = 1 } = req.query;
+    const products = await productModel.find().skip((Number(page) - 1) * Number(limit)).limit(Number(limit));
+    res.status(200).json({ success: true, message: "Products fetched", products });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
