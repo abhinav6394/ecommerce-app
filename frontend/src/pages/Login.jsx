@@ -4,7 +4,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const Login = () => {
-
+  
   const [currentState, setCurrentState] = useState('Sign Up')
   const {token, setToken, navigate, backendUrl} = useContext(ShopContext)
   const [name, setName] = useState('')
@@ -21,6 +21,7 @@ const Login = () => {
           setToken(response.data.token)
           localStorage.setItem('token',response.data.token)
           toast.success(response.data.message)
+          navigate('/')
         }
         else{
           toast.error(response.data.message)

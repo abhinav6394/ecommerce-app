@@ -40,7 +40,7 @@ const Verify = () => {
 
   return (
     <div>
-      hello
+      <h1 className='text-2xl'>PAYMENT VERYFIED SUCCESSFULLY</h1>
     </div>
   )
 }
