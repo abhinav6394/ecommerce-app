@@ -43,8 +43,8 @@ const registerUser = async (req, res) => {
     //create user
     const newUser = new userModel({ name, email, password: hashedPassword });
     const user = await newUser.save();
-
-    res.send({ success: true, message: "user created successfully" });
+    const token = createToken(user._id)
+    res.send({ success: true, message: "user created successfully",token });
   } catch (error) {
     console.log(error);
     res.status(500).send({ success: false, message: "internal server err", error });

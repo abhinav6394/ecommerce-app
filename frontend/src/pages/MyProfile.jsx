@@ -16,7 +16,7 @@ const MyProfile = () => {
         return null
       }
       const response = await axios.post(backendUrl+'/api/user/profile',{},{headers:{token}})
-      console.log(response.data.user)
+      // console.log(response.data.user)
       setProfile(response.data.user)
     } catch (error) {
       console.log(error)
