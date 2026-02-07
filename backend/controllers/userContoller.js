@@ -43,7 +43,7 @@ const registerUser = async (req, res) => {
     //create user
     const newUser = new userModel({ name, email, password: hashedPassword });
     const user = await newUser.save();
-    const token = createToken(user._id)
+    const token = createToken(newUser._id)
     res.send({ success: true, message: "user created successfully",token });
   } catch (error) {
     console.log(error);
